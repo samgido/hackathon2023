@@ -7,13 +7,25 @@ class Point:
         self.x = width * uniform(-1., 1.)
         self.y = height * uniform(-1., 1.)
         self.V: (float, float) = (0., 0.)
-        self.reset_chance = 0.3
+        self.reset_chance = 0.01
+
+        self.prev_x = self.x
+        self.prev_y = self.y
 
     def update(self):
-        self.x += self.V[0]
-        self.y += self.V[1]
+        multiplier = 1000
+            
+        if randrange(0, multiplier) < (self.reset_chance * multiplier):
+            width = self.window_info[0]
+            height = self.window_info[1]
 
-        chance = uniform(0, 100)
+            self.x = width * uniform(-1., 1.)
+            self.y = height * uniform(-1., 1.)
+            self.prev_x = self.x
+            self.prev_y = self.y
+        else:
+            self.prev_x = self.x        
+            self.prev_y = self.y
 
-        if(chance < self.reset_chance):
-            self = Point(self.window_info)
+            self.x += self.V[0]
+            self.y += self.V[1]
