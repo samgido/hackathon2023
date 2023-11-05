@@ -7,13 +7,13 @@ class Point:
         self.x = width * uniform(-1., 1.)
         self.y = height * uniform(-1., 1.)
         self.V: (float, float) = (0., 0.)
-        self.reset_chance = 0.01
+        self.reset_chance = 0.1
 
         self.prev_x = self.x
         self.prev_y = self.y
 
     def update(self):
-        multiplier = 1000
+        multiplier = 500
             
         if randrange(0, multiplier) < (self.reset_chance * multiplier):
             width = self.window_info[0]

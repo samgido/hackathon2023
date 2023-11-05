@@ -30,20 +30,21 @@ def vec_field(x,y) -> (float, float):
 
 def update():
     for p in collection:
-        # d.draw_line(p.x, p.y, p.prev_x, p.prev_y)
-        id = d.draw_point(p.x, p.y)
+        d.draw_line(p.x, p.y, p.prev_x, p.prev_y)
+        # d.draw_point(p.x, p.y)
         p.V = vec_field(p.x, p.y)
         p.update()
 
-        canvas_collection.append(canvas_point.CanvasPoint(id))
+        # canvas_collection.append(canvas_point.CanvasPoint(id))
             
-    for cp in canvas_collection:
-        if cp.age >= 5:
-            canvas.delete(cp.id)
-        else:
-            cp.age += 1
+    # for cp in canvas_collection:
+    #     if cp.age >= 5:
+    #         canvas.delete(cp.id)
+    #         canvas_collection.remove(cp)
+    #     else:
+    #         cp.age += 1
 
-    root.after(40, update)
+    root.after(1000, update)
     
 update()
 root.mainloop()
