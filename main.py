@@ -23,11 +23,11 @@ canvas_collection = [[],[],[],[],[]]
 iter = 0
 
 for i in range(1000):
-    collection.append(point.Point(WIN_WIDTH, WIN_HEIGHT))
+    collection.append(point.Point(WIN_WIDTH, WIN_HEIGHT, canvas))
 
 def vec_field(x,y) -> (float, float):
-    Vx = (sin(y) * CONVERT) * (sin(y) * CONVERT)
-    Vy = y
+    Vx = 0.1 * y
+    Vy = -0.1 * y
 
     return (Vx, Vy)
 
@@ -43,10 +43,8 @@ def update():
         canvas.delete(line)
 
     for p in collection:
-        line = d.draw_line(p.x, p.y, p.prev_x, p.prev_y)
-        # d.draw_point(p.x, p.y)
         p.V = vec_field(p.x, p.y)
-        p.update()
+        line = p.update()
 
         canvas_collection[iter].append(line)
 

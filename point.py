@@ -1,8 +1,11 @@
 from random import * 
+import tkinter as tk
+
+import drawer
 
 class Point:
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, canvas: tk.Canvas):
         self.window_info = (width, height)
         self.x = width * uniform(-1., 1.)
         self.y = height * uniform(-1., 1.)
@@ -11,6 +14,8 @@ class Point:
 
         self.prev_x = self.x
         self.prev_y = self.y
+
+        self.d: drawer.Drawer = drawer.Drawer(canvas)
 
     def update(self):
         multiplier = 500
@@ -23,6 +28,8 @@ class Point:
             self.y = height * uniform(-1., 1.)
             self.prev_x = self.x
             self.prev_y = self.y
+
+            return self.d.draw_line(0,0,0,0)
         else:
             self.prev_x = self.x        
             self.prev_y = self.y
@@ -30,3 +37,4 @@ class Point:
             self.x += self.V[0]
             self.y += self.V[1]
 
+            return self.d.draw_line(self.x, self.y, self.prev_x, self.prev_y)
