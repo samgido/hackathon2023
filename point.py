@@ -29,3 +29,4 @@ class Point:
 
             self.x += self.V[0]
             self.y += self.V[1]
+

@@ -23,4 +23,4 @@ class Drawer:
         x1 = x1_real + (width/2)
         y1 = (height/2) - y1_real
 
-        return self.canvas.create_line(x0, y0, x1, y1)
+        return self.canvas.create_line(x0, y0, x1, y1, width=thickness)

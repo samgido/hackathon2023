@@ -4,10 +4,11 @@ from math import *
 
 import point
 import drawer
-import canvas_point
 
-WIN_HEIGHT = 700
-WIN_WIDTH = 700
+CONVERT = 180/pi
+
+WIN_HEIGHT = 800
+WIN_WIDTH = 800
 
 root = tk.Tk()
 root.geometry(str(WIN_HEIGHT) + "x" + str(WIN_WIDTH))
@@ -25,8 +26,8 @@ for i in range(1000):
     collection.append(point.Point(WIN_WIDTH, WIN_HEIGHT))
 
 def vec_field(x,y) -> (float, float):
-    Vx = 0.1 * y
-    Vy = -0.1 * y
+    Vx = (sin(y) * CONVERT) * (sin(y) * CONVERT)
+    Vy = y
 
     return (Vx, Vy)
 
@@ -49,7 +50,7 @@ def update():
 
         canvas_collection[iter].append(line)
 
-    root.after(100, update)
+    root.after(10, update)
     
 update()
 root.mainloop()
