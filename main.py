@@ -15,7 +15,6 @@ root.geometry(str(WIN_HEIGHT) + "x" + str(WIN_WIDTH))
 
 canvas = tk.Canvas(root, height=WIN_HEIGHT, width=WIN_WIDTH, bg="white")
 canvas.pack()
-d = drawer.Drawer(canvas)
 
 collection = []
 canvas_collection = [[],[],[],[],[]]
@@ -23,10 +22,10 @@ canvas_collection = [[],[],[],[],[]]
 iter = 0
 
 for i in range(1000):
-    collection.append(point.Point(WIN_WIDTH, WIN_HEIGHT, canvas))
+    collection.append(point.Point(WIN_WIDTH, WIN_HEIGHT))
 
 def vec_field(x,y) -> (float, float):
-    Vx = 0.1 * y
+    Vx = 0.1 * x
     Vy = -0.1 * y
 
     return (Vx, Vy)
@@ -44,7 +43,7 @@ def update():
 
     for p in collection:
         p.V = vec_field(p.x, p.y)
-        line = p.update()
+        line = p.update(canvas)
 
         canvas_collection[iter].append(line)
 

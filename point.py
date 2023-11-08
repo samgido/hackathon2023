@@ -5,7 +5,7 @@ import drawer
 
 class Point:
 
-    def __init__(self, width, height, canvas: tk.Canvas):
+    def __init__(self, width, height):
         self.window_info = (width, height)
         self.x = width * uniform(-1., 1.)
         self.y = height * uniform(-1., 1.)
@@ -15,9 +15,7 @@ class Point:
         self.prev_x = self.x
         self.prev_y = self.y
 
-        self.d: drawer.Drawer = drawer.Drawer(canvas)
-
-    def update(self):
+    def update(self, canvas: tk.Canvas):
         multiplier = 500
             
         if randrange(0, multiplier) < (self.reset_chance * multiplier):
@@ -29,7 +27,7 @@ class Point:
             self.prev_x = self.x
             self.prev_y = self.y
 
-            return self.d.draw_line(0,0,0,0)
+            return drawer.draw_line(0,0,0,0, canvas)
         else:
             self.prev_x = self.x        
             self.prev_y = self.y
@@ -37,4 +35,4 @@ class Point:
             self.x += self.V[0]
             self.y += self.V[1]
 
-            return self.d.draw_line(self.x, self.y, self.prev_x, self.prev_y)
+            return drawer.draw_line(self.x, self.y, self.prev_x, self.prev_y, canvas)
