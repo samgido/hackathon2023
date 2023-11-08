@@ -17,7 +17,9 @@ canvas.pack()
 d = drawer.Drawer(canvas)
 
 collection = []
-canvas_collection = []
+canvas_collection = [[],[],[],[],[]]
+
+iter = 0
 
 for i in range(1000):
     collection.append(point.Point(WIN_WIDTH, WIN_HEIGHT))
@@ -29,22 +31,25 @@ def vec_field(x,y) -> (float, float):
     return (Vx, Vy)
 
 def update():
+    global iter
+
+    if(iter == 4):
+        iter = 0
+    else:
+        iter += 1
+
+    for line in canvas_collection[iter]:
+        canvas.delete(line)
+
     for p in collection:
-        d.draw_line(p.x, p.y, p.prev_x, p.prev_y)
+        line = d.draw_line(p.x, p.y, p.prev_x, p.prev_y)
         # d.draw_point(p.x, p.y)
         p.V = vec_field(p.x, p.y)
         p.update()
 
-        # canvas_collection.append(canvas_point.CanvasPoint(id))
-            
-    # for cp in canvas_collection:
-    #     if cp.age >= 5:
-    #         canvas.delete(cp.id)
-    #         canvas_collection.remove(cp)
-    #     else:
-    #         cp.age += 1
+        canvas_collection[iter].append(line)
 
-    root.after(1000, update)
+    root.after(100, update)
     
 update()
 root.mainloop()
