@@ -16,6 +16,7 @@ WIN_WIDTH = 800
 geometry = str(WIN_HEIGHT) + "x" + str(WIN_WIDTH)
 
 root = tk.Tk()
+root.attributes('-fullscreen', True)
 root.geometry(geometry)
 
 canvas = tk.Canvas(root, height= WIN_HEIGHT, width= WIN_WIDTH, bg="white")
@@ -28,6 +29,9 @@ collection_count = 10
 
 for i in range(1500):
     collection.append(point.Point(WIN_WIDTH, WIN_HEIGHT, velocity_modifier))
+
+def escape_pressed(event):
+    root.destroy()
 
 def vec_field(x,y) -> (float, float):
     Vx = 0.1 * x
@@ -60,4 +64,5 @@ def update():
     root.after(10, update)
     
 update()
+root.bind('<Escape>', escape_pressed)
 root.mainloop()
