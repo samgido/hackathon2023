@@ -5,7 +5,7 @@ import drawer
 
 class Point:
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, velocity_modifier):
         self.window_info = (width, height)
         self.x = width * uniform(-1., 1.)
         self.y = height * uniform(-1., 1.)
@@ -14,6 +14,8 @@ class Point:
 
         self.prev_x = self.x
         self.prev_y = self.y
+
+        self.VM = velocity_modifier
 
     def update(self, canvas: tk.Canvas):
         multiplier = 500
@@ -32,7 +34,7 @@ class Point:
             self.prev_x = self.x        
             self.prev_y = self.y
 
-            self.x += self.V[0]
-            self.y += self.V[1]
+            self.x += self.V[0] * self.VM
+            self.y += self.V[1] * self.VM
 
             return drawer.draw_line(self.x, self.y, self.prev_x, self.prev_y, canvas)
