@@ -22,12 +22,11 @@ canvas = tk.Canvas(root, height= WIN_HEIGHT, width= WIN_WIDTH, bg="white")
 canvas.pack()
 
 collection = []
-canvas_collection = [[],[],[],[],[],[],[],[],[],[]]
 
 iter = 0
 collection_count = 10
 
-for i in range(2000):
+for i in range(1500):
     collection.append(point.Point(WIN_WIDTH, WIN_HEIGHT, velocity_modifier))
 
 def vec_field(x,y) -> (float, float):
@@ -40,7 +39,7 @@ def update():
     global iter
 
     if modify:
-        for line in canvas_collection[iter]:
+        for line in canvas.find_withtag("tag" + str(iter)):
             canvas.itemconfigure(line, width = iter + 5)
             canvas.itemconfig(line, dash=(iter+1, 10 - iter))
             pass
@@ -50,14 +49,13 @@ def update():
     else:
         iter += 1
 
-    for line in canvas_collection[iter]:
-        canvas.delete(line)
+    canvas.delete("tag" + str(iter))
 
     for p in collection:
         p.V = vec_field(p.x, p.y)
         line = p.update(canvas)
 
-        canvas_collection[iter].append(line)
+        canvas.addtag_withtag("tag" + str(iter), line)
 
     root.after(10, update)
     
