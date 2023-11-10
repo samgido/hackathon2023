@@ -5,10 +5,6 @@ from math import *
 import point
 import drawer
 
-modify = False
-
-velocity_modifier = 1
-
 CONVERT = 180/pi
 
 WIN_HEIGHT = 1600
@@ -22,7 +18,18 @@ root.geometry(geometry)
 canvas = tk.Canvas(root, height= WIN_HEIGHT, width= WIN_WIDTH, bg="white")
 canvas.pack()
 
+modify = True
+
+velocity_modifier = 1
+
 collection = []
+
+colors = [
+    'blue',
+    'black', 
+    'red', 
+    'green'
+]
 
 iter = 0
 collection_count = 10
@@ -34,8 +41,8 @@ def escape_pressed(event):
     root.destroy()
 
 def vec_field(x,y) -> (float, float):
-    Vx = 0.1 * x
-    Vy = -0.1 * y
+    Vx = y
+    Vy = y
 
     return (Vx, Vy)
 
@@ -44,8 +51,9 @@ def update():
 
     if modify:
         for line in canvas.find_withtag("tag" + str(iter)):
-            canvas.itemconfigure(line, width = iter + 5)
-            canvas.itemconfig(line, dash=(iter+1, 10 - iter))
+            canvas.itemconfigure(line, width = iter)
+            canvas.itemconfig(line, dash=(iter + 5, 10 - iter))
+            canvas.itemconfig(line, fill = colors[iter % len(colors)])
             pass
 
     if(iter == collection_count - 1):
